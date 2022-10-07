@@ -32,17 +32,16 @@ export class ItemsService {
         headers: {'accept': 'application/json',
        'content-type': 'application/x-www-form-urlencoded'}});
   }
-  getPhone(token:string, tokenRefresh:string | null){
-    let bear = 'Bearer '+token;
-    /// curl -X GET -H 'Authorization: Bearer $ACCESS_TOKEN' https://api.mercadolibre.com/sites/MLA/search?category=MLA1051
-    return this.http.get('https://api.mercadolibre.com/sites/MLA/search?category=MLA1055',{
+  getPhone(token:string, offset:number){
+    return this.http.get('https://api.mercadolibre.com/sites/MLM/search?q=celular&sort=price_asc&limit=40&offset='+offset,{
       headers: {'accept': 'application/json',
-     'Authorization': bear}});
+     'Authorization': 'Bearer '+token}});
   }
-getL (){
-  return this.http.get('https://auth.mercadolibre.com.mx/authorization?response_type=code&client_id=5700302036723737&redirect_uri=https://meli-angular-app.herokuapp.com', 
-  { headers:{"Access-Control-Allow-Origin":"*",
-  "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"}  });
-}
+  getCategories (token:string){
+    return this.http.get('https://api.mercadolibre.com/sites/MLM/categories', 
+    {
+      headers: {'accept': 'application/json',
+     'Authorization': 'Bearer '+token}});
+    }
   
 }

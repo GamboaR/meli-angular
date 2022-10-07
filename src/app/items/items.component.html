@@ -1,0 +1,43 @@
+<div class="container">
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">MELI ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Seller ID</th>
+        <th scope="col">Seller Name</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad Disponible</th>
+        <th scope="col">Direccion Seller</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Envio gratis</th>
+        <th scope="col">Atributos</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items | paginate: {  itemsPerPage: 40, currentPage: p, totalItems:1000}">
+        <td>{{item.id}}</td>
+        <td>
+        <a href={{item.permalink}}><img [src]=" item.thumbnail" class="me-2" style="width: 20px">
+        {{ item.title }}</a>
+        </td>
+        <td>{{item.seller.id}}</td>
+        <td>{{item.seller.permalink.replace('http://perfil.mercadolibre.com.mx/','')}}
+        <td>{{ item.price | currency}}</td>
+        <td>{{item.available_quantity}}</td>
+        <td>{{item.seller_address.state.name}}</td>
+        <td>{{ item.attributes[0].value_name }}</td>
+        <td>{{ item.shipping.free_shipping }}</td>
+        <td>{{ (item.attributes[1]) ?item.attributes[1].value_name  : 'NA'}}</td>
+
+    
+        
+    </tr>
+
+    </tbody>
+
+    </table>
+
+    <pagination-controls (pageChange)="pageChanged(p = $event)"></pagination-controls>
+   
+</div>
